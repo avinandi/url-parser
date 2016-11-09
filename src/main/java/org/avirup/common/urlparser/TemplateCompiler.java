@@ -1,0 +1,46 @@
+package org.avirup.common.urlparser;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.String.format;
+
+public class TemplateCompiler {
+
+    private static final String VALUE_PATTERN_STRING = "([^/]+?)";
+    private static final Pattern VARIABLE_PATTERN = Pattern.compile("(\\{[\\w]+\\})");
+    private static final Pattern VARIABLE_GROUP_PATTERN = Pattern.compile("^\\{([\\w]+)\\}$");
+
+    static CompiledTemplate compile(final String template) {
+        Matcher matcher = VARIABLE_PATTERN.matcher(template);
+        String replacedByValuePattern = matcher.replaceAll(VALUE_PATTERN_STRING);
+        return new CompiledTemplate(template,
+                Pattern.compile(replacedByValuePattern),
+                getTemplateVariableNames(matcher));
+    }
+
+    static Set<String> getTemplateVariableNames(Matcher matcher) {
+        Set<String> templateVariables = new HashSet<>();
+        while (matcher.find()) {
+            String group = matcher.group();
+            Matcher groupMatcher = VARIABLE_GROUP_PATTERN.matcher(matcher.group());
+            Validators.validate(groupMatcher.matches(), format("Variable pattern {} is not valid", group));
+            Validators.validate(templateVariables.add(groupMatcher.group(1)), format("Duplicate occurrence of variable {}", group));
+        }
+        return templateVariables;
+    }
+
+    static class CompiledTemplate {
+        final String template;
+        final Pattern urlPattern;
+        final Set<String> templateVariables;
+
+        CompiledTemplate(String template, Pattern urlPattern, Set<String> templateVariables) {
+            this.template = template;
+            this.urlPattern = urlPattern;
+            this.templateVariables = templateVariables;
+        }
+    }
+}
