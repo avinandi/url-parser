@@ -10,15 +10,14 @@ public class Sanitizer {
     }
 
     static String sanitizeTemplate(final String template) {
-        int templateLength = template.length();
-        String sanitizedTemplate = removeEndSlash(template, templateLength);
-        sanitizedTemplate = removeQueryStringTemplating(sanitizedTemplate);
+        String sanitizedTemplate = removeQueryStringTemplating(template);
+        sanitizedTemplate = removeEndSlash(sanitizedTemplate);
         return sanitizedTemplate;
     }
 
-    private static String removeEndSlash(final String template, final int templateLength) {
+    private static String removeEndSlash(final String template) {
         if (template.endsWith("/")) {
-            return template.substring(0, templateLength);
+            return template.substring(0, template.length() - 1);
         }
         return template;
     }
