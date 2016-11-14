@@ -27,8 +27,8 @@ public class TemplateCompiler {
         while (matcher.find()) {
             String group = matcher.group();
             Matcher groupMatcher = VARIABLE_GROUP_PATTERN.matcher(matcher.group());
-            Validators.validate(!groupMatcher.matches(), format("Variable pattern %s is not valid", group));
-            Validators.validate(!templateVariables.add(groupMatcher.group(1)), format("Duplicate occurrence of variable %s", group));
+            Validators.validate(groupMatcher.matches(), format("Variable pattern %s is not valid", group));
+            Validators.validate(templateVariables.add(groupMatcher.group(1)), format("Duplicate occurrence of variable %s", group));
         }
         return templateVariables;
     }

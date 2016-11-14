@@ -7,7 +7,7 @@ public class Validators {
 
     private static final Pattern BASIC_TEMPLATE_PATTERN = Pattern.compile(".*?(\\{[\\w]+\\}).*?");
     private static final Pattern PATTERN_RESTRICT_STARTING_CURLY_BRACKET_INSIDE_TEMPLATE_VAR = Pattern.compile("([\\/]\\{[\\w]+\\})");
-    private static final Pattern PATTERN_RESTRICT_ENDING_CURLY_BRACKET_INSIDE_TEMPLATE_VAR = Pattern.compile("(\\{[\\w]+\\}[\\/])");
+    private static final Pattern PATTERN_RESTRICT_ENDING_CURLY_BRACKET_INSIDE_TEMPLATE_VAR = Pattern.compile("(\\{[\\w]+\\}(\\/|$))");
 
     private Validators() {
         // static class
@@ -20,14 +20,14 @@ public class Validators {
     }
 
     static void validate(boolean isValid, String message) {
-        if (isValid) {
+        if (!isValid) {
             throw new IllegalStateException(message);
         }
     }
 
     static void validateTemplatePattern(String template) {
-        validate(!template.startsWith("/"), "Template should start with '/'");
-        validate(!BASIC_TEMPLATE_PATTERN.matcher(template).matches(), "Invalid template");
+        validate(template.startsWith("/"), "Template should start with '/'");
+        validate(BASIC_TEMPLATE_PATTERN.matcher(template).matches(), "Invalid template");
         int groupsCount1 = getNumberOfFoundGroups(BASIC_TEMPLATE_PATTERN, template);
         int groupsCount2 = getNumberOfFoundGroups(PATTERN_RESTRICT_STARTING_CURLY_BRACKET_INSIDE_TEMPLATE_VAR, template);
         int groupsCount3 = getNumberOfFoundGroups(PATTERN_RESTRICT_ENDING_CURLY_BRACKET_INSIDE_TEMPLATE_VAR, template);
