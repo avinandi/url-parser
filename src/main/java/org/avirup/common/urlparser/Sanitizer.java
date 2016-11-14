@@ -36,7 +36,7 @@ public class Sanitizer {
             dec = decoder == null || decoder.isEmpty() ? "UTF-8" : decoder;
             return URLDecoder.decode(urlOrParam, dec);
         } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException(String.format("Decoding failed for {} with decoder {}", urlOrParam, dec));
+            throw new IllegalArgumentException(String.format("Decoding failed for %s with decoder %s", urlOrParam, dec));
         }
     }
 }

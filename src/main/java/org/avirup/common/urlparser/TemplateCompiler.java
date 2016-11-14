@@ -15,10 +15,11 @@ public class TemplateCompiler {
 
     static CompiledTemplate compile(final String template) {
         Matcher matcher = VARIABLE_PATTERN.matcher(template);
-        String replacedByValuePattern = matcher.replaceAll(VALUE_PATTERN_STRING);
+        Set<String> variableNames = getTemplateVariableNames(matcher);
+        String replacedByValuePattern = matcher.replaceAll(VALUE_PATTERN_STRING); // This is mutable, so once you replace this wont be able to get variable names
         return new CompiledTemplate(template,
                 Pattern.compile(replacedByValuePattern),
-                getTemplateVariableNames(matcher));
+                variableNames);
     }
 
     static Set<String> getTemplateVariableNames(Matcher matcher) {
@@ -26,8 +27,8 @@ public class TemplateCompiler {
         while (matcher.find()) {
             String group = matcher.group();
             Matcher groupMatcher = VARIABLE_GROUP_PATTERN.matcher(matcher.group());
-            Validators.validate(groupMatcher.matches(), format("Variable pattern {} is not valid", group));
-            Validators.validate(templateVariables.add(groupMatcher.group(1)), format("Duplicate occurrence of variable {}", group));
+            Validators.validate(!groupMatcher.matches(), format("Variable pattern %s is not valid", group));
+            Validators.validate(!templateVariables.add(groupMatcher.group(1)), format("Duplicate occurrence of variable %s", group));
         }
         return templateVariables;
     }
