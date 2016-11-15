@@ -20,3 +20,14 @@ Param pathName: myOwnPath
 Param query: myOwnQuery
 ```
 In above example you see `parse` method returns `boolean`. If provided Url matches the template, it would return true, otherwise false. **Note that,** It is recomended to check if `parse` returns true, or you can get un-necessary exception while accessing other methods, like: `getPathParamValue, getQueryParamValue etc`
+
+###### Javadocs
+
+- `createParser(String template)` creates the UrlParser object with the provided template
+- `parse(String url)` takes input url to be parsed and returns boolean
+- `parse(String url, String decoder)` takes input url to be parsed, decoder e.g. 'UTF-8' and returns boolean
+- `parse(URL url)` takes input url to be parsed and returns boolean
+- `getAllPathParams()` returns all path params as form of `Map<String, String>`
+- `getPathParamValue(String templateVar)` takes templateVar as input and returns path param value
+- `getAllQueryParams()` returns all query params as form of `Map<String, List<String>>`
+- `getQueryParamValue(String queryParamKey)` takes queryParamKey as input and returns `List<String>`
