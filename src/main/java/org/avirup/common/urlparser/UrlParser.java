@@ -68,11 +68,4 @@ public class UrlParser {
     public Map<String, List<String>> getAllQueryParams() {
         return parsed.getQueryParamsMap();
     }
-
-    public static void main(String[] args) {
-        UrlParser urlParser = createParser("/something/{abc}/something2/{abcr}");
-        if (urlParser.parse("/something/12345/something2/123456")) {
-            System.out.println(urlParser.getAllPathParams());
-        }
-    }
 }

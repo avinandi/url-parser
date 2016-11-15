@@ -7,7 +7,7 @@ import static org.avirup.common.urlparser.Sanitizer.sanitizeTemplate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class SanitizerTest {
+public class SanitizerTest extends AbstractUrlParserTest {
 
     @Test
     public void shouldRemoveQueryStringFromTemplate() {

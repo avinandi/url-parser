@@ -3,13 +3,9 @@ package org.avirup.common.urlparser;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.avirup.common.urlparser.Validators.validate;
-import static org.avirup.common.urlparser.Validators.validateNonEmptyOrNonNull;
-import static org.avirup.common.urlparser.Validators.validateTemplatePattern;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.avirup.common.urlparser.Validators.*;
 
-public class ValidatorTest {
+public class ValidatorTest extends AbstractUrlParserTest {
 
     @Test
     public void shouldValidateNonEmptyOrNonNull() {
@@ -62,15 +58,5 @@ public class ValidatorTest {
     @Test
     public void shouldFailIfTemplateVariableNameHasExtraEndingCurlyBracket() {
         validateTemplate("/rest/public/id/{invalid}char}", IllegalStateException.class, "Invalid template");
-    }
-
-    private void validateTemplate(String pattern, Class<? extends RuntimeException> expectedException, String expectedErrorMessage) {
-        try {
-            validateTemplatePattern(pattern);
-            Assert.fail("Should throw exception");
-        } catch (RuntimeException re) {
-            assertTrue(expectedException.isInstance(re));
-            assertEquals(expectedErrorMessage, re.getMessage());
-        }
     }
 }
