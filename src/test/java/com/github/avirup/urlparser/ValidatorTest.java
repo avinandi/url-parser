@@ -1,9 +1,9 @@
-package org.avirup.common.urlparser;
+package com.github.avirup.urlparser;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.avirup.common.urlparser.Validators.*;
+import static com.github.avirup.urlparser.Validators.*;
 
 public class ValidatorTest extends AbstractUrlParserTest {
 

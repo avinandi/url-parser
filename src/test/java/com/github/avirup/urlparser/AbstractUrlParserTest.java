@@ -1,9 +1,8 @@
-package org.avirup.common.urlparser;
+package com.github.avirup.urlparser;
 
 import org.junit.Assert;
 
-import static org.avirup.common.urlparser.UrlParser.createParser;
-import static org.avirup.common.urlparser.Validators.validateTemplatePattern;
+import static com.github.avirup.urlparser.Validators.validateTemplatePattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +20,7 @@ public abstract class AbstractUrlParserTest {
 
     protected void assertCreateParserException(String pattern, Class<? extends RuntimeException> expectedException, String expectedErrorMessage) {
         try {
-            createParser(pattern);
+            UrlParser.createParser(pattern);
             Assert.fail("Should throw exception");
         } catch (RuntimeException re) {
             assertTrue(expectedException.isInstance(re));

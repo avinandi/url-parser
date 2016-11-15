@@ -1,4 +1,4 @@
-package org.avirup.common.urlparser;
+package com.github.avirup.urlparser;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -6,12 +6,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.avirup.common.urlparser.Sanitizer.decode;
-import static org.avirup.common.urlparser.Sanitizer.sanitizeTemplate;
-import static org.avirup.common.urlparser.TemplateCompiler.CompiledTemplate;
-import static org.avirup.common.urlparser.TemplateCompiler.compile;
-import static org.avirup.common.urlparser.Validators.validateNonEmptyOrNonNull;
-import static org.avirup.common.urlparser.Validators.validateTemplatePattern;
+import static com.github.avirup.urlparser.Sanitizer.decode;
+import static com.github.avirup.urlparser.Sanitizer.sanitizeTemplate;
+import static com.github.avirup.urlparser.TemplateCompiler.CompiledTemplate;
+import static com.github.avirup.urlparser.TemplateCompiler.compile;
+import static com.github.avirup.urlparser.Validators.validateNonEmptyOrNonNull;
+import static com.github.avirup.urlparser.Validators.validateTemplatePattern;
 
 public class UrlParser {
 

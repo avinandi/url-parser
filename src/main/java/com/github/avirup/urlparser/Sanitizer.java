@@ -1,4 +1,4 @@
-package org.avirup.common.urlparser;
+package com.github.avirup.urlparser;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
