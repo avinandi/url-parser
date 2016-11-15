@@ -1,6 +1,8 @@
 # url-parser
 #### Parse URL based on the provided template
 
+[![Build Status](https://travis-ci.org/avirup-nandi/url-parser.svg?branch=master)](https://travis-ci.org/avirup-nandi/url-parser)
+
 Url Parser is a light-weight project module which does not use any external library in production code.
 Template should include only the Url path, if you add query string in template, that would be ignored.
 Query params are represented as key value params, i.e. by providing key to `getQueryParamValue` method, you can fetch the value of query params.
