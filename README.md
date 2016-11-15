@@ -31,3 +31,19 @@ In above example you see `parse` method returns `boolean`. If provided Url match
 - `getPathParamValue(String templateVar)` takes templateVar as input and returns path param value
 - `getAllQueryParams()` returns all query params as form of `Map<String, List<String>>`
 - `getQueryParamValue(String queryParamKey)` takes queryParamKey as input and returns `List<String>`
+
+###### url-parser supports multiple query params with same key like `?x=1&x=2&x=3&y=1`, e.g.
+```
+UrlParser urlParser = UrlParser.createParser("/path/{pathName}");
+if (urlParser.parse("/path/myOwnPath?query=myOwnQuery&query=myPetsQuery&otherQuery=brothersQuery")) {
+    System.out.println("My param query: " + urlParser.getQueryParamValue("query"));
+    System.out.println("Others param query: " + urlParser.getQueryParamValue("otherQuery"));
+}
+```
+Output:
+``` 
+My param query: List("myOwnQuery", "myPetsQuery")
+Others param query: List("brothersQuery")
+```
+
+##### More examples in [test-cases](https://github.com/avirup-nandi/url-parser/tree/master/src/test/java/org/avirup/common/urlparser)
