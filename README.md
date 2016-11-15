@@ -49,3 +49,8 @@ Others param query: List("brothersQuery")
 ```
 
 ##### More examples in [test-cases](https://github.com/avirup-nandi/url-parser/tree/master/src/test/java/org/avirup/common/urlparser)
+
+##### TODO List
+- [ ] Support for Java 8
+- [ ] Support type casting to the expected type (e.g. Integer, Double etc.)
+- [ ] Publish this project in public repo
