@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.avirup.urlparser</groupId>
+    <groupId>com.github.avirup</groupId>
     <artifactId>url-parser</artifactId>
     <version>trunk-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -21,7 +21,7 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/avirup-nandi/url-parser</url>
+        <url>https://github.com/avirup-nandi/url-parser.git</url>
         <connection>scm:git:git://github.com/avirup-nandi/url-parser.git</connection>
         <developerConnection>scm:git:git@github.com:avirup-nandi/url-parser.git.git</developerConnection>
     </scm>
