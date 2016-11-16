@@ -5,8 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.avirup</groupId>
     <artifactId>url-parser</artifactId>
-    <version>trunk-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <name>com.github.avirup.url-parser</name>
+    <description>Url parser based on the provided template, e.g. /template/{variable}</description>
+    <url>https://github.com/avirup-nandi/url-parser</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +35,6 @@
             <email>avirup.nandi@gmail.com</email>
             <name>Avirup Nandi</name>
             <url>https://github.com/avirup-nandi</url>
-            <id>avirup-nandi</id>
         </developer>
     </developers>
 
@@ -93,4 +96,15 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
