@@ -1,4 +1,4 @@
-package com.github.avirup.urlparser;
+package com.github.avinandi.urlparser;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -6,20 +6,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.avirup.urlparser.Sanitizer.decode;
-import static com.github.avirup.urlparser.Sanitizer.sanitizeTemplate;
-import static com.github.avirup.urlparser.TemplateCompiler.CompiledTemplate;
-import static com.github.avirup.urlparser.TemplateCompiler.compile;
-import static com.github.avirup.urlparser.Validators.validateNonEmptyOrNonNull;
-import static com.github.avirup.urlparser.Validators.validateTemplatePattern;
+import static com.github.avinandi.urlparser.Sanitizer.decode;
+import static com.github.avinandi.urlparser.Sanitizer.sanitizeTemplate;
+import static com.github.avinandi.urlparser.Validators.validateNonEmptyOrNonNull;
+import static com.github.avinandi.urlparser.Validators.validateTemplatePattern;
 
 public class UrlParser {
 
-    private final CompiledTemplate compiledTemplate;
+    private final TemplateCompiler.CompiledTemplate compiledTemplate;
 
     private Parse parsed;
 
-    private UrlParser(final CompiledTemplate compiledTemplate) {
+    private UrlParser(final TemplateCompiler.CompiledTemplate compiledTemplate) {
         this.compiledTemplate = compiledTemplate;
     }
 
@@ -28,7 +26,7 @@ public class UrlParser {
         validateTemplatePattern(template);
 
         final String sanitizedTemplate = sanitizeTemplate(template);
-        CompiledTemplate compiledTemplate = compile(sanitizedTemplate);
+        TemplateCompiler.CompiledTemplate compiledTemplate = TemplateCompiler.compile(sanitizedTemplate);
 
         return new UrlParser(compiledTemplate);
     }

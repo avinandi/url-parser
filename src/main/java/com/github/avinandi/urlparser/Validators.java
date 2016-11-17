@@ -1,4 +1,4 @@
-package com.github.avirup.urlparser;
+package com.github.avinandi.urlparser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

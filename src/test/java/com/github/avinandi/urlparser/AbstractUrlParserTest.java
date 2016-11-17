@@ -1,8 +1,8 @@
-package com.github.avirup.urlparser;
+package com.github.avinandi.urlparser;
 
 import org.junit.Assert;
 
-import static com.github.avirup.urlparser.Validators.validateTemplatePattern;
+import static com.github.avinandi.urlparser.Validators.validateTemplatePattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
