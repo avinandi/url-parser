@@ -2,6 +2,8 @@ package com.github.avinandi.urlparser;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
@@ -108,5 +110,100 @@ public class UrlParserTest extends AbstractUrlParserTest {
             assertEquals(IllegalArgumentException.class, ex.getClass());
             assertTrue(ex.getCause().toString().contains(URISyntaxException.class.getCanonicalName()));
         }
+    }
+
+    @Test
+    public void shouldGetIntegerType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/pin/{pin}");
+        assertTrue(urlParser.parse("/rest/public/pin/4321"));
+
+        Integer pin = (Integer) urlParser.getPathParamValue("pin", Type.INTEGER);
+        assertEquals(4321, pin.intValue());
+    }
+
+    @Test
+    public void shouldGetLongType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/pin/{pin}");
+        assertTrue(urlParser.parse("/rest/public/pin/4321"));
+
+        Long pin = (Long) urlParser.getPathParamValue("pin", Type.LONG);
+        assertEquals(4321, pin.longValue());
+    }
+
+    @Test
+    public void shouldGetDoubleType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/price/{price}");
+        assertTrue(urlParser.parse("/rest/public/price/43.21"));
+
+        Double price = (Double) urlParser.getPathParamValue("price", Type.DOUBLE);
+        assertEquals(43.21, price.doubleValue(), 1e-15);
+    }
+
+    @Test
+    public void shouldGetFloatType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/price/{price}");
+        assertTrue(urlParser.parse("/rest/public/price/43.21"));
+
+        Float price = (Float) urlParser.getPathParamValue("price", Type.FLOAT);
+        assertEquals(43.21, price.floatValue(), 1e-15);
+    }
+
+    @Test
+    public void shouldGetBigIntType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/price/{longpin}");
+        assertTrue(urlParser.parse("/rest/public/price/434343434343434343434343"));
+
+        BigInteger longpin = (BigInteger) urlParser.getPathParamValue("longpin", Type.BIGINT);
+        assertEquals(new BigInteger("434343434343434343434343"), longpin);
+    }
+
+    @Test
+    public void shouldGetBigDecimalType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/price/{longprice}");
+        assertTrue(urlParser.parse("/rest/public/price/43.4343434343434343434343"));
+
+        BigDecimal longprice = (BigDecimal) urlParser.getPathParamValue("longpin", Type.BIGDECIMAL);
+        assertEquals(new BigDecimal("43.4343434343434343434343"), longprice);
+    }
+
+    @Test
+    public void shouldGetBooleanType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/price/{isFree}");
+        assertTrue(urlParser.parse("/rest/public/price/true"));
+
+        boolean isFree = (boolean) urlParser.getPathParamValue("isFree", Type.BOOLEAN);
+        assertEquals(true, isFree);
+    }
+
+    @Test
+    public void shouldGetArrayTypeWithDefaultDelimiter() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/usernames/{usernames}");
+        assertTrue(urlParser.parse("/rest/public/usernames/Ram,Sham,Jadu,Madhu"));
+
+        String[] usernames = (String[]) urlParser.getPathParamValue("usernames", Type.ARRAY);
+        assertUsernamesArray(usernames);
+    }
+
+    @Test
+    public void shouldGetArrayTypeWithCustomDelimiter() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/usernames/{usernames}");
+        assertTrue(urlParser.parse("/rest/public/usernames/Ram:Sham:Jadu:Madhu"));
+
+        Type arrayTypeWithCustomDelem = Type.ARRAY.setDelimiterForTypeArray(":");
+        String[] usernames = (String[]) urlParser.getPathParamValue("usernames", arrayTypeWithCustomDelem);
+        assertUsernamesArray(usernames);
+    }
+
+    private void assertUsernamesArray(String[] usernames) {
+        String[] expectedUsernames = {"Ram", "Sham", "Jadu", "Madhu"};
+        assertArrayEquals(expectedUsernames, usernames);
+    }
+
+    @Test(expected = ClassCastException.class)
+    public void shouldFailForWrongType() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/usernames/{username}");
+        assertTrue(urlParser.parse("/rest/public/usernames/Avirup"));
+
+        urlParser.getPathParamValue("username", Type.INTEGER);
     }
 }

@@ -54,6 +54,11 @@ public class UrlParser {
         return parsed.getKeyValueMap().get(variableName);
     }
 
+    public Object getPathParamValue(String variableName, Type type) {
+        String input = parsed.getKeyValueMap().get(variableName);
+        return type.convert(input);
+    }
+
     public List<String> getQueryParamValue(String queryParamName) {
         return parsed.getQueryParamsMap() == null ? Collections.<String>emptyList()
                 : parsed.getQueryParamsMap().get(queryParamName);
