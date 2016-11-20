@@ -112,6 +112,13 @@ public class UrlParserTest extends AbstractUrlParserTest {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldFailForWrongVariableName() {
+        UrlParser urlParser = UrlParser.createParser("/rest/public/pin/{pin}");
+        assertTrue(urlParser.parse("/rest/public/pin/4321"));
+        urlParser.getPathParamValue("pintemp");
+    }
+
     @Test
     public void shouldGetIntegerType() {
         UrlParser urlParser = UrlParser.createParser("/rest/public/pin/{pin}");
@@ -145,7 +152,7 @@ public class UrlParserTest extends AbstractUrlParserTest {
         assertTrue(urlParser.parse("/rest/public/price/43.21"));
 
         Float price = (Float) urlParser.getPathParamValue("price", Type.FLOAT);
-        assertEquals(43.21, price.floatValue(), 1e-15);
+        assertEquals(43.21, price.floatValue(), 0.0002);
     }
 
     @Test
@@ -162,7 +169,7 @@ public class UrlParserTest extends AbstractUrlParserTest {
         UrlParser urlParser = UrlParser.createParser("/rest/public/price/{longprice}");
         assertTrue(urlParser.parse("/rest/public/price/43.4343434343434343434343"));
 
-        BigDecimal longprice = (BigDecimal) urlParser.getPathParamValue("longpin", Type.BIGDECIMAL);
+        BigDecimal longprice = (BigDecimal) urlParser.getPathParamValue("longprice", Type.BIGDECIMAL);
         assertEquals(new BigDecimal("43.4343434343434343434343"), longprice);
     }
 
@@ -181,7 +188,8 @@ public class UrlParserTest extends AbstractUrlParserTest {
         assertTrue(urlParser.parse("/rest/public/usernames/Ram,Sham,Jadu,Madhu"));
 
         String[] usernames = (String[]) urlParser.getPathParamValue("usernames", Type.ARRAY);
-        assertUsernamesArray(usernames);
+        String[] expectedUsernames = {"Ram", "Sham", "Jadu", "Madhu"};
+        assertArrayEquals(expectedUsernames, usernames);
     }
 
     @Test
@@ -191,10 +199,6 @@ public class UrlParserTest extends AbstractUrlParserTest {
 
         Type arrayTypeWithCustomDelem = Type.ARRAY.setDelimiterForTypeArray(":");
         String[] usernames = (String[]) urlParser.getPathParamValue("usernames", arrayTypeWithCustomDelem);
-        assertUsernamesArray(usernames);
-    }
-
-    private void assertUsernamesArray(String[] usernames) {
         String[] expectedUsernames = {"Ram", "Sham", "Jadu", "Madhu"};
         assertArrayEquals(expectedUsernames, usernames);
     }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static com.github.avinandi.urlparser.Sanitizer.decode;
 import static com.github.avinandi.urlparser.Sanitizer.sanitizeTemplate;
+import static com.github.avinandi.urlparser.Validators.validateArgument;
 import static com.github.avinandi.urlparser.Validators.validateNonEmptyOrNonNull;
 import static com.github.avinandi.urlparser.Validators.validateTemplatePattern;
 
@@ -51,17 +52,24 @@ public class UrlParser {
     }
 
     public String getPathParamValue(String variableName) {
+        validateArgument(compiledTemplate.templateVariables.contains(variableName),
+                "Path variable " + variableName + " is not part of template");
         return parsed.getKeyValueMap().get(variableName);
     }
 
     public Object getPathParamValue(String variableName, Type type) {
-        String input = parsed.getKeyValueMap().get(variableName);
+        String input = getPathParamValue(variableName);
         return type.convert(input);
     }
 
     public List<String> getQueryParamValue(String queryParamName) {
-        return parsed.getQueryParamsMap() == null ? Collections.<String>emptyList()
-                : parsed.getQueryParamsMap().get(queryParamName);
+        if (parsed.getQueryParamsMap() == null) {
+            return Collections.emptyList();
+        } else {
+            validateArgument(parsed.getQueryParamsMap().containsKey(queryParamName),
+                    "Query variable " + queryParamName + " is not part of template");
+            return parsed.getQueryParamsMap().get(queryParamName);
+        }
     }
 
     public Map<String, String> getAllPathParams() {

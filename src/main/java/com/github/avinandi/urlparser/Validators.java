@@ -19,6 +19,12 @@ public class Validators {
         }
     }
 
+    static void validateArgument(boolean isValid, String message) {
+        if (!isValid) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
     static void validate(boolean isValid, String message) {
         if (!isValid) {
             throw new IllegalStateException(message);
