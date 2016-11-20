@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import static com.github.avinandi.urlparser.Validators.validateNonEmptyOrNonNull;
+
 public enum Type {
     INTEGER(Integer.class),
     LONG(Long.class),
@@ -30,6 +32,7 @@ public enum Type {
     }
 
     public Type setDelimiterForTypeArray(CharSequence delimiter) {
+        validateNonEmptyOrNonNull(delimiter.toString(), "Delimiter can't be null or empty");
         this.delimiter = delimiter;
         return this;
     }
