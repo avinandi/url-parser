@@ -10,15 +10,18 @@ Query params are represented as key value params, i.e. by providing key to `getQ
 **Java Compiler: `1.7`**
 ###### How to use
 ```
-UrlParser urlParser = UrlParser.createParser("/path/{pathName}");
-if (urlParser.parse("/path/myOwnPath?query=myOwnQuery")) {
+UrlParser urlParser = UrlParser.createParser("/path/{pathName}/pin/{pin}");
+if (urlParser.parse("/path/NSCBoseRoad/pin/33003?query=myOwnQuery")) {
     System.out.println("Param pathName: " + urlParser.getPathParamValue("templateName"));
+    Integer pin = (Integer) urlParser.getPathParamValue("pin", Type.INTEGER);
+    System.out.println("Param PIN: " + pin);
     System.out.println("Param query: " + urlParser.getQueryParamValue("query").get(0));
 }
 ```
 Output:
 ``` 
-Param pathName: myOwnPath
+Param pathName: NSCBoseRoad
+Param PIN: 33003
 Param query: myOwnQuery
 ```
 In above example you see `parse` method returns `boolean`. If provided Url matches the template, it would return true, otherwise false. **Note that,** It is recomended to check if `parse` returns true, or you can get un-necessary exception while accessing other methods, like: `getPathParamValue, getQueryParamValue etc`
@@ -31,8 +34,13 @@ In above example you see `parse` method returns `boolean`. If provided Url match
 - `parse(URL url)` takes input url to be parsed and returns boolean
 - `getAllPathParams()` returns all path params as form of `Map<String, String>`
 - `getPathParamValue(String templateVar)` takes templateVar as input and returns path param value
+- `getPathParamValue(String templateVar, Type type)` takes templateVar and type as inputs and returns typed cast path param value
 - `getAllQueryParams()` returns all query params as form of `Map<String, List<String>>`
 - `getQueryParamValue(String queryParamKey)` takes queryParamKey as input and returns `List<String>`
+
+###### Type support
+UrlParser support Type casting of `INTEGER, LONG, FLOAT, DOUBLE, BOOLEAN, STRING, BIGINT, BIGDECIMAL, ARRAY`
+Special type Array is supported for delimiter seperated value `e.g /usernames/Ram,Sham,Jadu,Madhu`. **Note that,** if you use Type.ARRAY, it will use `comma(,)` as default delimiter. To set custom delimiter you have to set that explicitely using `Type.ARRAY.setDelimiterForTypeArray(CharSequence delimiter)` method, `e.g. Type.ARRAY.setDelimiterForTypeArray(":")`.
 
 ###### url-parser supports multiple query params with same key like `?x=1&x=2&x=3&y=1`, e.g.
 ```
