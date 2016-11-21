@@ -17,7 +17,7 @@ public enum Type {
     STRING(String.class),
     BIGINT(BigInteger.class),
     BIGDECIMAL(BigDecimal.class),
-    ARRAY(Array.class, ",");
+    ARRAY(Array.class, TypeConstant.DEFAULT_DELIM);
 
     final Class<?> clazz;
     CharSequence delimiter;
@@ -58,7 +58,9 @@ public enum Type {
     }
 
     private String[] splitStringByDelimiter(String input) {
-        return input.split(delimiter.toString());
+        CharSequence customDelim = delimiter;
+        this.setDelimiterForTypeArray(TypeConstant.DEFAULT_DELIM); // After operation reset to default DELIMITER
+        return input.split(customDelim.toString());
     }
 
     private Object handleGenericTypes(String input) {
@@ -70,4 +72,8 @@ public enum Type {
                     + this.clazz + "with inline error: " + e.getMessage());
         }
     }
+}
+
+class TypeConstant {
+    static final CharSequence DEFAULT_DELIM = ",";
 }
