@@ -7,7 +7,7 @@ Url Parser is a light-weight project module which does not use any external libr
 Template should include only the Url path, if you add query string in template, that would be ignored.
 Query params are represented as key value params, i.e. by providing key to `getQueryParamValue` method, you can fetch the value of query params.
 
-**Java Compiler: `1.7`**
+**Java Compiler: `1.7, 1.8`**
 
 ###### Importing as Maven dependency
 ```
@@ -69,4 +69,4 @@ Others param query: List("brothersQuery")
 ##### More examples in [test-cases](https://github.com/avirup-nandi/url-parser/tree/master/src/test/java/org/avirup/common/urlparser)
 
 ##### TODO List
-- [ ] Support for Java 8
+- [ ] Url Mapper would take Url and map it to suitable template
