@@ -1,13 +1,23 @@
 # url-parser
 #### Parse URL based on the provided template
 
-[![Build Status](https://travis-ci.org/avirup-nandi/url-parser.svg?branch=master)](https://travis-ci.org/avirup-nandi/url-parser)
+[![Build Status](https://travis-ci.org/avinandi/url-parser.svg?branch=master)](https://travis-ci.org/avinandi/url-parser)
 
 Url Parser is a light-weight project module which does not use any external library in production code.
 Template should include only the Url path, if you add query string in template, that would be ignored.
 Query params are represented as key value params, i.e. by providing key to `getQueryParamValue` method, you can fetch the value of query params.
 
 **Java Compiler: `1.7`**
+
+###### Importing as Maven dependency
+```
+<dependency>
+    <groupId>com.github.avinandi</groupId>
+    <artifactId>url-parser</artifactId>
+    <version>1.1</version>
+</dependency>
+```
+
 ###### How to use
 ```
 UrlParser urlParser = UrlParser.createParser("/path/{pathName}/pin/{pin}");
@@ -60,5 +70,3 @@ Others param query: List("brothersQuery")
 
 ##### TODO List
 - [ ] Support for Java 8
-- [ ] Support type casting to the expected type (e.g. Integer, Double etc.)
-- [ ] Publish this project in public repo
