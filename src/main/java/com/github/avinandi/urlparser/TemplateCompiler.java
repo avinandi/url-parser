@@ -1,6 +1,6 @@
 package com.github.avinandi.urlparser;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +23,7 @@ public class TemplateCompiler {
     }
 
     static Set<String> getTemplateVariableNames(Matcher matcher) {
-        Set<String> templateVariables = new HashSet<>();
+        Set<String> templateVariables = new LinkedHashSet<>(); // LinkedHashSet is used to avoid Duplicate entries and maintain insertion order
         while (matcher.find()) {
             String group = matcher.group();
             Matcher groupMatcher = VARIABLE_GROUP_PATTERN.matcher(matcher.group());
