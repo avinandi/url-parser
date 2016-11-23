@@ -37,6 +37,17 @@ public class UrlParserTest extends AbstractUrlParserTest {
     }
 
     @Test
+    public void shouldParseUrlPathParamsWithoutAnyStaticPathSpecifier() {
+        UrlParser urlParser = UrlParser.createParser("/{useridid}/{username}");
+        assertTrue(urlParser.parse("/gr8Avi/Avirup"));
+
+        String useridid = urlParser.getPathParamValue("useridid");
+        String username = urlParser.getPathParamValue("username");
+        assertEquals("gr8Avi", useridid);
+        assertEquals("Avirup", username);
+    }
+
+    @Test
     public void shouldParseUrlQueryParams() {
         UrlParser urlParser = UrlParser.createParser("/rest/public/username/{username}/pin/{pin}");
         assertTrue(urlParser.parse("/rest/public/username/gr8Avi/pin/4321?isPasswordSet=true"));
